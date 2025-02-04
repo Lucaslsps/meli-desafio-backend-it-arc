@@ -34,10 +34,12 @@ public class NotifyForecastServiceImpl implements NotifyForecastService {
         notificationsToBeSent.forEach((notification -> {
             final NotifyForecastDTO request = NotifyForecastDTO.builder()
                     .cityName(notification.getCity())
-                    .notificationDate(notification.getNotificationDate())
+                    .notificationId(notification.getId())
                     .build();
             try {
                 desafioBackendItArcApiService.notifyForecast(request);
+                notification.setStatus(NotificationStatusEnum.PROCESSED.getDescription());
+                notificationRepository.save(notification);
                 log.info("[NotifyForecastService] Success processing notification id: {}", notification.getId());
             } catch (DesafioBackendItArcApiException e) {
                 log.error("[NotifyForecastService] Error on sending notification id: {} with error: {}",

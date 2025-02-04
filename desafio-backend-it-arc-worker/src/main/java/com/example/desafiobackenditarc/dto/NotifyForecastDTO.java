@@ -9,5 +9,5 @@ import java.util.Date;
 @Builder
 public class NotifyForecastDTO {
     private String cityName;
-    private Date notificationDate;
+    private Integer notificationId;
 }

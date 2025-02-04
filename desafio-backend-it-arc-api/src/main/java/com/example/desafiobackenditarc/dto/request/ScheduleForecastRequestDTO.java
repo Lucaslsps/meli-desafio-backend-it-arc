@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class NotifyForecastRequestDTO {
+public class ScheduleForecastRequestDTO {
     private String cityName;
-    private Integer notificationId;
+    private Date notificationDate;
 }

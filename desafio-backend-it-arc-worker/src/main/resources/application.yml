@@ -22,8 +22,8 @@ spring:
 clients:
   feign:
     desafioBackendItArcApi:
-      url: ${DESAFIO_IT_ARC_API_URL:}
-      token: ${DESAFIO_IT_ARC_API_TOKEN:}
+      url: ${DESAFIO_IT_ARC_API_URL:http://api:8080}
+      token: ${DESAFIO_IT_ARC_API_TOKEN:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o}
       path:
         notify-forecast: ${DESAFIO_IT_ARC_API_NOTIFY_FORECAST_PATH:}
 

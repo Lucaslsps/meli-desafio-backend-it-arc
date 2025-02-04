@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS notifications (
     id SERIAL PRIMARY KEY,
     status VARCHAR(50) NOT NULL,
-    city_name VARCHAR(100) NOT NULL,
+    city_name VARCHAR(100),
     notification_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

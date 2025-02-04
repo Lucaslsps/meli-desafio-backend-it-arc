@@ -33,7 +33,7 @@ public class Notification {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "city")
+    @Column(name = "city_name")
     private String city;
 
     @Column(name = "error_message")

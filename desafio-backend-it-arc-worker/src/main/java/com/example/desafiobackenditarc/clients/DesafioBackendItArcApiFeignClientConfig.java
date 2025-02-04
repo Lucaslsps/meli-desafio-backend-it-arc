@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-@FeignClient(name = DesafioBackendItArcApiConfig.NAME, url = DesafioBackendItArcApiConfig.URL, path =
-        DesafioBackendItArcApiConfig.PATH, configuration = DesafioBackendItArcApiConfig.class)
+@FeignClient(name = DesafioBackendItArcApiConfig.NAME, url = DesafioBackendItArcApiConfig.URL,
+        path = DesafioBackendItArcApiConfig.PATH,
+        configuration = DesafioBackendItArcApiConfig.class)
 public interface DesafioBackendItArcApiFeignClientConfig {
 
     @PostMapping(DesafioBackendItArcApiConfig.NOTIFY_FORECAST)
