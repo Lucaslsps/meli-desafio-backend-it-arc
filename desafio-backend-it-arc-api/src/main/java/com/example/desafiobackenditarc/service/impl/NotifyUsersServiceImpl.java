@@ -1,6 +1,7 @@
 package com.example.desafiobackenditarc.service.impl;
 
 import com.example.desafiobackenditarc.clients.CPTECApiService;
+import com.example.desafiobackenditarc.clients.MockClientService;
 import com.example.desafiobackenditarc.dto.cptec.CityForecastDTO;
 import com.example.desafiobackenditarc.dto.cptec.CityListDTO;
 import com.example.desafiobackenditarc.dto.cptec.WaveForecastDTO;
@@ -29,6 +30,7 @@ public class NotifyUsersServiceImpl implements NotifyUsersService {
     final NotificationRepository notificationRepository;
     final UserRepository userRepository;
     final CPTECApiService cptecApiService;
+    final MockClientService mockClientService;
 
     public void notifyUsers(final String cityName) throws EntityNotFoundException, CPTECException {
         final List<User> usersToBeNotified = userRepository.findByCityName(cityName);
@@ -79,6 +81,7 @@ public class NotifyUsersServiceImpl implements NotifyUsersService {
                                         .windDirection(waveForecast.getNight().getWindDirection()).build())
                                 .build()).build();
 
+        mockClientService.notifyUser(notificationDTO);
         log.info("Notification sent to city: {}, notification: {}", cityName, notificationDTO);
     }
 }

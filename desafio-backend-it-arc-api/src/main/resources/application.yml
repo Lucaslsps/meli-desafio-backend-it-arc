@@ -23,6 +23,10 @@ spring:
   caffeine:
     spec: maximumSize=1000,expireAfterWrite=10m
 
+client:
+  mock:
+    url: ${MOCK_CLIENT_URL:http://mock:8082}
+
 security:
   jwt:
     uri: /**
