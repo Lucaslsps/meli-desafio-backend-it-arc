@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: desafio-backend-it-arc-worker
+  profiles:
+    active: ${ENV:dev}
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:secret}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+clients:
+  feign:
+    desafioBackendItArcApi:
+      url: ${DESAFIO_IT_ARC_API_URL:}
+      token: ${DESAFIO_IT_ARC_API_TOKEN:}
+      path:
+        notify-forecast: ${DESAFIO_IT_ARC_API_NOTIFY_FORECAST_PATH:}
+
+scheduler:
+  notification:
+    enabled: ${NOTIFICATION_SCHEDULER_ENABLED:true}
+    cron: ${NOTIFICATION_SCHEDULER_CRON:*/5 * * * * *}

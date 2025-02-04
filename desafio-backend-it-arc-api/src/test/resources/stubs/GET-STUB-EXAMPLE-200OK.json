@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/v1/urlfake"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "attr1": "value"
+    }
+  }
+}
