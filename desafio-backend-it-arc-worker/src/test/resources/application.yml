@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: economize-023-api
+    name: desafio-backend-it-arc-worker
   profiles:
     active: ${ENV:dev}
   datasource:

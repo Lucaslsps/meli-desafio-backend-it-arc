@@ -22,3 +22,10 @@ spring:
     type: caffeine
   caffeine:
     spec: maximumSize=1000,expireAfterWrite=10m
+
+security:
+  jwt:
+    uri: /**
+    header: Authorization
+    prefix: Bearer
+    secret: secret
