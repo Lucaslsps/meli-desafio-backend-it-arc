@@ -1,6 +1,5 @@
 package com.example.desafiobackenditarc.service.impl;
 
-import com.example.desafiobackenditarc.clients.CPTECApiService;
 import com.example.desafiobackenditarc.dto.request.NotifyForecastRequestDTO;
 import com.example.desafiobackenditarc.enums.NotificationStatusEnum;
 import com.example.desafiobackenditarc.exception.CPTECException;
@@ -8,8 +7,7 @@ import com.example.desafiobackenditarc.exception.DesafioBackendItArcApiException
 import com.example.desafiobackenditarc.exception.EntityNotFoundException;
 import com.example.desafiobackenditarc.model.Notification;
 import com.example.desafiobackenditarc.repository.NotificationRepository;
-import com.example.desafiobackenditarc.repository.UserRepository;
-import com.example.desafiobackenditarc.service.NotifyUsersService;
+import com.example.desafiobackenditarc.service.SendNotificationService;
 import com.example.desafiobackenditarc.service.NotifyForecastService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +21,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class NotifyForecastServiceImpl implements NotifyForecastService {
     final NotificationRepository notificationRepository;
-    final NotifyUsersService notifyUsersService;
+    final SendNotificationService sendNotificationService;
 
     @Override
     public void process(NotifyForecastRequestDTO requestDTO)
@@ -31,9 +29,9 @@ public class NotifyForecastServiceImpl implements NotifyForecastService {
         if (Objects.isNull(requestDTO.getNotificationId())) {
             final Notification notification = Notification.builder().city(requestDTO.getCityName()).build();
             notification.setStatus(NotificationStatusEnum.PENDING.getDescription());
-            log.info("[NotifyForecastService] Notification is not scheduled: {}", notification);
+            log.info("[NotifyForecastService] Sending not scheduled notification: {}", notification);
             try {
-                notifyUsersService.notifyUsers(requestDTO.getCityName());
+                sendNotificationService.notifyUsers(requestDTO.getCityName());
                 notification.setNotificationDate(new Date());
                 notification.setStatus(NotificationStatusEnum.PROCESSED.getDescription());
                 notificationRepository.save(notification);
@@ -46,7 +44,8 @@ public class NotifyForecastServiceImpl implements NotifyForecastService {
                         "[NotifyForecastService] Error on saving notification, error: " + e.getMessage());
             }
         } else {
-            notifyUsersService.notifyUsers(requestDTO.getCityName());
+            log.info("[NotifyForecastService] Sending scheduled notification id: {}", requestDTO.getNotificationId());
+            sendNotificationService.notifyUsers(requestDTO.getCityName());
         }
     }
 }

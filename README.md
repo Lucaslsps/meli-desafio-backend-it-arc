@@ -1,54 +1,66 @@
 # Meli Desafio Backend IT ARC
 
-## Overview
+## Visão Geral
 
-This project is orchestrated using Docker Compose. It has three sub projects: a Postgres database, a Spring Java API and a Spring Java Worker.
+Este projeto é orquestrado usando Docker Compose. Ele possui quatro subprojetos: um banco de dados Postgres, uma API Java Spring, um Worker Java Spring e uma aplicação mock em GO.
 
-
-## Services
+## Serviços
 
 ### PostgreSQL
-- **Image**: `postgres:15`
-- **Description**: This service runs a PostgreSQL database to store notifications and user data.
+- **Imagem**: `postgres:15`
+- **Descrição**: Este serviço executa um banco de dados PostgreSQL para armazenar dados de notificações e usuários.
 
 ### API
 - **Build**: `./desafio-backend-it-arc-api`
-- **Description**: This service runs the main API for the project, which interacts with the PostgreSQL database and external CPTEC API.
+- **Descrição**: Este serviço executa a API principal do projeto, que interage com o banco de dados PostgreSQL e a API externa CPTEC.
 
 ### Worker
 - **Build**: `./desafio-backend-it-arc-worker`
-- **Description**: This service runs a scheduler that queries the database to check for any pending notifications that should be sent, calling the API via HTTP when need.
+- **Descrição**: Este serviço executa um scheduler que consulta o banco de dados para verificar se há notificações pendentes que devem ser enviadas, chamando a API via HTTP quando necessário.
 
-## Running the Project
+### Mock
+- **Build**: `./desafio-backend-it-arc-mock`
+- **Descrição**: Este serviço executa uma aplicação mínima em GO que retorna OK quando recebe um POST, sua funcionalidade é somente mocar uma resposta no fluxo.
 
-1. **Clone the repository**:
+## Executando o Projeto
+
+1. **Clone o repositório**:
     ```sh
     git clone <repository-url>
     cd <repository-directory>
     ```
 
-2. **Start the services**:
+2. **Inicie os serviços**:
     ```sh
     docker-compose up -d
     ```
 
-3. **Check the status of the services**:
+3. **Verifique o status dos serviços**:
     ```sh
     docker-compose ps
     ```
 
-## Database Initialization
+## Inicialização do Banco de Dados
 
-The PostgreSQL database is initialized with the following scripts located in the `./db` directory:
+O banco de dados PostgreSQL é inicializado com os seguintes scripts localizados no diretório `./db`:
 
-- `01-create-tables.sql`: Creates the `notifications` and `users` tables.
-- `02-insert-data.sql`: Inserts seed data into the `notifications` and `users` tables.
+- `01-create-tables.sql`: Cria as tabelas `notifications` e `users`.
+- `02-insert-data.sql`: Insere dados de seed nas tabelas `notifications` e `users`.
 
 ## Health Checks
 
-The `postgres` service includes a health check to ensure the database is ready before other services start.
+O serviço `postgres` inclui uma verificação de saúde para garantir que o banco de dados esteja pronto antes que outros serviços iniciem.
 
+## Documentação
 
-## Conclusion
+### API
 
-This project demonstrates a multi-service architecture using Docker Compose, with a focus on database interactions, background processing, and external API integration. Follow the steps above to set up and run the project locally.
+A API possui uma documentação de endpoints via swagger acessível por: http://localhost:8080/swagger-ui/index.html
+
+### Fluxos
+
+![Fluxos](./imgs/fluxos.png)
+
+## Conclusão
+
+Este projeto demonstra uma arquitetura de múltiplos serviços usando Docker Compose, com foco em interações com banco de dados, processamento em segundo plano e integração com API externa.

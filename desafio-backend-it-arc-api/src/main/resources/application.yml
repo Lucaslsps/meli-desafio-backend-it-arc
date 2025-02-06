@@ -33,3 +33,15 @@ security:
     header: Authorization
     prefix: Bearer
     secret: secret
+
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    groups:
+      enabled: false
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: false

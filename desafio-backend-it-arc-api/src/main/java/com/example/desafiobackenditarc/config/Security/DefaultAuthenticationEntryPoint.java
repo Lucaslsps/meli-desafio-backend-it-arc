@@ -12,7 +12,7 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response,
-                         final AuthenticationException authException) throws IOException, ServletException {
+                         final AuthenticationException authException) {
         response.setStatus(401);
         response.setContentType("application/json");
     }

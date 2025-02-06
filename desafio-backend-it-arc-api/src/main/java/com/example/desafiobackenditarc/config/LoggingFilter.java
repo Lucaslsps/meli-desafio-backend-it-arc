@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Configuration
 public class LoggingFilter extends OncePerRequestFilter {
 
-  private static final String REQUEST_COMPLETED = "request completed";
 
   @Override
   protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,

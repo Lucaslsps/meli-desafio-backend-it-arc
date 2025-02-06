@@ -16,7 +16,6 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-
         http
                 .csrf()
                 .disable()
@@ -30,11 +29,11 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/actuator/health",
                         "/actuator/info",
-                        "/swagger-resources/**",
-                        "/v2/api-docs/**",
                         "/swagger-ui.html",
+                        "/swagger-ui/**",
                         "/v3/api-docs/**",
-                        "/swagger-ui/**"
+                        "/swagger-resources/**",
+                        "/webjars/**"
                 ).permitAll()
                 .anyRequest()
                 .authenticated();

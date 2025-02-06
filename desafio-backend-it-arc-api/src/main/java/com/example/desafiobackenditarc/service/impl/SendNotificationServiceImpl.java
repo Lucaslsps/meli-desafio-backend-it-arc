@@ -14,7 +14,7 @@ import com.example.desafiobackenditarc.exception.EntityNotFoundException;
 import com.example.desafiobackenditarc.model.User;
 import com.example.desafiobackenditarc.repository.NotificationRepository;
 import com.example.desafiobackenditarc.repository.UserRepository;
-import com.example.desafiobackenditarc.service.NotifyUsersService;
+import com.example.desafiobackenditarc.service.SendNotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class NotifyUsersServiceImpl implements NotifyUsersService {
+public class SendNotificationServiceImpl implements SendNotificationService {
     final NotificationRepository notificationRepository;
     final UserRepository userRepository;
     final CPTECApiService cptecApiService;
