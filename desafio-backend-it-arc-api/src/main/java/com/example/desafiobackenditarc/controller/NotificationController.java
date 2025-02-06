@@ -2,11 +2,13 @@ package com.example.desafiobackenditarc.controller;
 
 import com.example.desafiobackenditarc.dto.request.NotifyForecastRequestDTO;
 import com.example.desafiobackenditarc.dto.request.ScheduleForecastRequestDTO;
+import com.example.desafiobackenditarc.dto.response.NotifyForecastResponseDTO;
 import com.example.desafiobackenditarc.exception.CPTECException;
 import com.example.desafiobackenditarc.exception.DesafioBackendItArcApiException;
 import com.example.desafiobackenditarc.exception.EntityNotFoundException;
 import com.example.desafiobackenditarc.service.NotifyForecastService;
 import com.example.desafiobackenditarc.service.ScheduleForecastService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,16 +29,18 @@ public class NotificationController {
     private final ScheduleForecastService scheduleForecastService;
 
     @PostMapping("/forecast")
-    public ResponseEntity notifyForecast(@RequestBody final NotifyForecastRequestDTO request)
+    @Operation(description = "Notify users from a city, whether the notification " +
+            "is scheduled or not")
+    public ResponseEntity notifyForecast(@Valid @RequestBody final NotifyForecastRequestDTO request)
             throws DesafioBackendItArcApiException, EntityNotFoundException, CPTECException {
-        notifyForecastService.process(request);
-        return ResponseEntity.ok("OK");
+        final NotifyForecastResponseDTO response = notifyForecastService.process(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/forecast/schedule")
-    public ResponseEntity scheduleForecast(@RequestBody final ScheduleForecastRequestDTO request)
-            throws DesafioBackendItArcApiException {
+    @Operation(description = "Schedule a notification for a city")
+    public ResponseEntity scheduleForecast(@Valid @RequestBody final ScheduleForecastRequestDTO request) {
         scheduleForecastService.process(request);
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("Notification for city " + request.getCityName() + " successfully scheduled");
     }
 }

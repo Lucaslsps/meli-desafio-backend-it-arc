@@ -2,6 +2,7 @@ package com.example.desafiobackenditarc.controller;
 
 import com.example.desafiobackenditarc.exception.EntityNotFoundException;
 import com.example.desafiobackenditarc.service.UserPreferencesService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,16 +19,18 @@ public class UserController {
     private final UserPreferencesService userPreferencesService;
 
     @PatchMapping("/optout/{userId}")
+    @Operation(description = "Opt out a user from receiving notifications")
     public ResponseEntity optOutUser(@PathVariable("userId") final Integer userId)
             throws EntityNotFoundException {
         userPreferencesService.changeUserAllowNotificationSetting(userId, false);
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("User id " + userId + " successfully opted out");
     }
 
     @PatchMapping("/optin/{userId}")
+    @Operation(description = "Opt in a user to receive notifications")
     public ResponseEntity optInUser(@PathVariable("userId") final Integer userId)
             throws EntityNotFoundException {
         userPreferencesService.changeUserAllowNotificationSetting(userId, true);
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok("User id " + userId + " successfully opted in");
     }
 }

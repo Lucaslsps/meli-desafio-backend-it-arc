@@ -17,12 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @IntegrationTest
-public class GroupControllerTest {
+public class UserControllerTest {
     @Autowired
     private NotificationController groupController;
     private MockMvc mockMvc;
 
-    private String controllerUrl = "/api/v1/group";
+    private String controllerUrl = "/api/v1/user";
 
     @BeforeEach
     public void setUp() {
@@ -33,7 +33,7 @@ public class GroupControllerTest {
     @Test
     @Sql("/sql/successGetUserGroups.sql")
     void successGetUserGroups() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(controllerUrl.concat("?user.id=1"))
+        mockMvc.perform(MockMvcRequestBuilders.get(controllerUrl.concat("/optout/1"))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8"))

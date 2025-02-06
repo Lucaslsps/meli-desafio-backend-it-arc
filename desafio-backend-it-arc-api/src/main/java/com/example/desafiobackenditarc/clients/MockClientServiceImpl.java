@@ -12,7 +12,7 @@ public class MockClientServiceImpl implements MockClientService {
     final MockFeignClient mockFeignClient;
 
     @Override
-    public void notifyUser(UserNotificationDTO userNotificationDTO) {
+    public void notifyUser(UserNotificationDTO userNotificationDTO, Integer userId) {
         mockFeignClient.notifyUser();
         log.info("[MockClientService] MOCK OK");
     }

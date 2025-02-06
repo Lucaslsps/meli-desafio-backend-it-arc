@@ -10,8 +10,10 @@ public class ApiResponseUtil {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public static <T> ResponseEntity<ApiResponseDTO<T>> buildErrorResponse(String message, HttpStatus status) {
-        ApiResponseDTO<T> response = new ApiResponseDTO<>(false, message, null);
+    public static <T> ResponseEntity<ApiResponseDTO<T>> buildErrorResponse(String message,
+                                                                           HttpStatus status,
+                                                                           T data) {
+        ApiResponseDTO<T> response = new ApiResponseDTO<>(false, message, data);
         return new ResponseEntity<>(response, status);
     }
 }
