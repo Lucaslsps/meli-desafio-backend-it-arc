@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.example.desafiobackenditarc.utils.ApiResponseUtil.buildSuccessResponse;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notify")
@@ -34,13 +36,13 @@ public class NotificationController {
     public ResponseEntity notifyForecast(@Valid @RequestBody final NotifyForecastRequestDTO request)
             throws DesafioBackendItArcApiException, EntityNotFoundException, CPTECException {
         final NotifyForecastResponseDTO response = notifyForecastService.process(request);
-        return ResponseEntity.ok(response);
+        return buildSuccessResponse(response);
     }
 
     @PostMapping("/forecast/schedule")
     @Operation(description = "Schedule a notification for a city")
     public ResponseEntity scheduleForecast(@Valid @RequestBody final ScheduleForecastRequestDTO request) {
         scheduleForecastService.process(request);
-        return ResponseEntity.ok("Notification for city " + request.getCityName() + " successfully scheduled");
+        return buildSuccessResponse("Notification for city " + request.getCityName() + " successfully scheduled");
     }
 }

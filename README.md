@@ -61,6 +61,10 @@ A API possui uma documentação de endpoints via swagger acessível por: http://
 
 ![Fluxos](./imgs/fluxos.png)
 
+## Testes
+
+As aplicações principais possuem cobertura maior do que 90%, possuindo testes integrados para seus fluxos.
+
 ## Conclusão
 
 Este projeto demonstra uma arquitetura de múltiplos serviços usando Docker Compose, com foco em interações com banco de dados, processamento em segundo plano e integração com API externa.

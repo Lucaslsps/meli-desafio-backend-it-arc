@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.desafiobackenditarc.utils.ApiResponseUtil.buildSuccessResponse;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
@@ -23,7 +25,7 @@ public class UserController {
     public ResponseEntity optOutUser(@PathVariable("userId") final Integer userId)
             throws EntityNotFoundException {
         userPreferencesService.changeUserAllowNotificationSetting(userId, false);
-        return ResponseEntity.ok("User id " + userId + " successfully opted out");
+        return buildSuccessResponse("User id " + userId + " successfully opted out");
     }
 
     @PatchMapping("/optin/{userId}")
@@ -31,6 +33,6 @@ public class UserController {
     public ResponseEntity optInUser(@PathVariable("userId") final Integer userId)
             throws EntityNotFoundException {
         userPreferencesService.changeUserAllowNotificationSetting(userId, true);
-        return ResponseEntity.ok("User id " + userId + " successfully opted in");
+        return buildSuccessResponse("User id " + userId + " successfully opted in");
     }
 }

@@ -23,12 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -58,7 +55,7 @@ public class SendNotificationServiceImpl implements SendNotificationService {
 
         if (Objects.isNull(cityList.getCities()) || cityList.getCities().isEmpty()) {
             log.error("[NotifyForecastService] Error getting city details on CPTEC. City: {}", cityName);
-            throw new CPTECException("Error getting city details on CPTEC");
+            throw new EntityNotFoundException("Error getting city details on CPTEC");
         }
 
         final Optional<CityListDTO.CityDTO> optionalCity = cityList.getCities().stream()
@@ -67,7 +64,7 @@ public class SendNotificationServiceImpl implements SendNotificationService {
 
         if (optionalCity.isEmpty()) {
             log.error("[NotifyForecastService] No matching city found on CPTEC. City: {}", cityName);
-            throw new CPTECException("No matching city found on CPTEC");
+            throw new EntityNotFoundException("No matching city found on CPTEC");
         }
 
         final CityListDTO.CityDTO city = optionalCity.get();
