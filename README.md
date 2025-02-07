@@ -58,6 +58,15 @@ O serviço `postgres` inclui uma verificação de saúde para garantir que o ban
 
 ## Documentação
 
+O ecosistema funciona de modo que é possível fazer notificações a nível de cidades. Sejam essas notificações agendadas ou não.
+
+Para notificações diretas, há uma rota na API principal que cuida de, além de notificar o usuário (através do projeto mock, simulando um projeto Web do desafio), também salvar essa notificação com seu status no banco.
+
+Para notificações agendadas, é necessário que primeiro haja uma requisição na API principal, agendando essa notificação. Após esse registro, o worker ficará lendo a tabela de notificações até chegar a hora dessa notificação ser enviada.
+
+O processo de envio de notificação agendada é similar ao de notificação direta, porém o worker fica encarregado de salvar o status da notificação no banco, em caso de sucesso ou falha.
+
+
 ### API
 
 A API possui uma documentação de endpoints via swagger acessível por: http://localhost:8080/swagger-ui/index.html
