@@ -33,6 +33,11 @@ security:
     header: Authorization
     prefix: Bearer
     secret: secret
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 
 springdoc:
   version: '@project.version@'

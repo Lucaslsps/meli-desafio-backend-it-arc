@@ -56,6 +56,8 @@ Para conectar localmente ao banco basta usar:
 
 O serviço `postgres` inclui uma verificação de saúde para garantir que o banco de dados esteja pronto antes que outros serviços iniciem.
 
+A nível de aplicação, a API principal possui um endpoint de health check para verificação de sua saúde acessável via: http://localhost:8080/actuator/health
+
 ## Documentação
 
 O ecosistema funciona de modo que é possível fazer notificações a nível de cidades. Sejam essas notificações agendadas ou não.
