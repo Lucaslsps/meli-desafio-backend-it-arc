@@ -18,9 +18,9 @@ public class DesafioBackendItArcApiServiceImpl implements DesafioBackendItArcApi
     private final DesafioBackendItArcApiFeignClientConfig desafioBackendItArcApiFeignClientConfig;
 
     @Override
-    public void notifyForecast(NotifyForecastDTO notifyForecastDTO) throws DesafioBackendItArcApiException {
+    public void notifyForecast(final Integer notificationId) throws DesafioBackendItArcApiException {
         try {
-            desafioBackendItArcApiFeignClientConfig.notifyForecast(notifyForecastDTO);
+            desafioBackendItArcApiFeignClientConfig.notifyForecast(notificationId);
         } catch (final FeignException feignException) {
             log.error("[DesafioBackendItArcApiService] Error on sending schedulement to API with error: {}",
                     feignException.getMessage());

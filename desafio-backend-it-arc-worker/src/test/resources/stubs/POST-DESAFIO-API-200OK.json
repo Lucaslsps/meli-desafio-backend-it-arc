@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "GET",
-    "url": "/v1/urlfake"
+    "method": "POST",
+    "url": "/api/v1/notify/forecast/scheduled/1"
   },
   "response": {
     "status": 200,

@@ -5,5 +5,5 @@ import com.example.desafiobackenditarc.exception.DesafioBackendItArcApiException
 
 
 public interface DesafioBackendItArcApiService {
-    void notifyForecast(NotifyForecastDTO notifyForecastDTO) throws DesafioBackendItArcApiException;
+    void notifyForecast(final Integer notificationId) throws DesafioBackendItArcApiException;
 }

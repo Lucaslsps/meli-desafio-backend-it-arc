@@ -74,13 +74,9 @@ class NotificationControllerTest {
     @Test
     @Sql({"classpath:sql/cleanup_script.sql", "classpath:sql/notification_scheduled_success_test.sql"})
     void successScheduledNotification() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post(controllerUrl.concat("/forecast"))
+        mockMvc.perform(MockMvcRequestBuilders.post(controllerUrl.concat("/forecast/scheduled/999"))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(NotifyForecastRequestDTO.builder()
-                                .cityName("city-successScheduledNotification")
-                                .notificationId(999)
-                                .build()))
                         .characterEncoding("utf-8"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
@@ -97,7 +93,7 @@ class NotificationControllerTest {
     @Test
     @Sql({"classpath:sql/cleanup_script.sql", "classpath:sql/notification_scheduled_success_test.sql"})
     void successScheduleNotification() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post(controllerUrl.concat("/forecast/schedule"))
+        mockMvc.perform(MockMvcRequestBuilders.post(controllerUrl.concat("/schedule"))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(toJson(ScheduleForecastRequestDTO.builder()
@@ -170,5 +166,20 @@ class NotificationControllerTest {
                         .value(false))
                 .andExpect(jsonPath("$.message")
                         .value("No matching city found on CPTEC"));
+    }
+
+    @Test
+    @Sql({"classpath:sql/cleanup_script.sql"})
+    void errorNotificationDoesNotExist() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post(controllerUrl.concat("/forecast/scheduled/50"))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.success")
+                        .value(false))
+                .andExpect(jsonPath("$.message")
+                        .value("Notification does not exist with id: 50"));
     }
 }

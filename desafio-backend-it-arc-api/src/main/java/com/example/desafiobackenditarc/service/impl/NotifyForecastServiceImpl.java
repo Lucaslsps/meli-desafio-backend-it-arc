@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -25,28 +26,25 @@ public class NotifyForecastServiceImpl implements NotifyForecastService {
     final SendNotificationService sendNotificationService;
 
     @Override
-    public NotifyForecastResponseDTO process(NotifyForecastRequestDTO requestDTO)
+    public NotifyForecastResponseDTO process(final NotifyForecastRequestDTO request)
             throws DesafioBackendItArcApiException, EntityNotFoundException, CPTECException {
-        if (Objects.isNull(requestDTO.getNotificationId())) {
-            final Notification notification = Notification.builder().city(requestDTO.getCityName()).build();
-            notification.setStatus(NotificationStatusEnum.PENDING.getDescription());
-            log.info("[NotifyForecastService] Sending not scheduled notification: {}", notification);
-            try {
-                final NotifyForecastResponseDTO response = sendNotificationService.notifyUsers(requestDTO.getCityName());
-                notification.setNotificationDate(new Date());
-                notification.setStatus(NotificationStatusEnum.PROCESSED.getDescription());
-                notificationRepository.save(notification);
-                return response;
-            } catch (Exception e) {
-                log.error("[NotifyForecastService] Error on notificating with error: {}", e.getMessage());
-                notification.setStatus(NotificationStatusEnum.ERROR.getDescription());
-                notification.setErrorMessage(e.getMessage());
-                notificationRepository.save(notification);
-                throw e;
-            }
-        } else {
-            log.info("[NotifyForecastService] Sending scheduled notification id: {}", requestDTO.getNotificationId());
-            return sendNotificationService.notifyUsers(requestDTO.getCityName());
+        final String cityName = request.getCityName();
+        final Notification notification = Notification.builder().city(cityName).build();
+        notification.setStatus(NotificationStatusEnum.PENDING.getDescription());
+        log.info("[NotifyForecastService] Sending not scheduled notification: {}", notification);
+
+        try {
+            final NotifyForecastResponseDTO response = sendNotificationService.notifyUsers(cityName);
+            notification.setNotificationDate(new Date());
+            notification.setStatus(NotificationStatusEnum.PROCESSED.getDescription());
+            notificationRepository.save(notification);
+            return response;
+        } catch (Exception e) {
+            log.error("[NotifyForecastService] Error on notificating with error: {}", e.getMessage());
+            notification.setStatus(NotificationStatusEnum.ERROR.getDescription());
+            notification.setErrorMessage(e.getMessage());
+            notificationRepository.save(notification);
+            throw e;
         }
     }
 }

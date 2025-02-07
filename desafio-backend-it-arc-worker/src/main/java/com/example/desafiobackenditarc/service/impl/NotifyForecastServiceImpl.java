@@ -32,12 +32,8 @@ public class NotifyForecastServiceImpl implements NotifyForecastService {
 
         log.info("[NotifyForecastService] Processing notifications: {}", notificationsToBeSent);
         notificationsToBeSent.forEach((notification -> {
-            final NotifyForecastDTO request = NotifyForecastDTO.builder()
-                    .cityName(notification.getCity())
-                    .notificationId(notification.getId())
-                    .build();
             try {
-                desafioBackendItArcApiService.notifyForecast(request);
+                desafioBackendItArcApiService.notifyForecast(notification.getId());
                 notification.setStatus(NotificationStatusEnum.PROCESSED.getDescription());
                 notificationRepository.save(notification);
                 log.info("[NotifyForecastService] Success processing notification id: {}", notification.getId());

@@ -163,7 +163,6 @@
 						<exclude>**/dto/**</exclude>
 						<exclude>**/exception/**</exclude>
 						<exclude>**/enums/**</exclude>
-						<exclude>**/dto/**</exclude>
 						<exclude>**/model/**</exclude>
 						<exclude>**/utils/**</exclude>
 						<exclude>**/*DesafioBackendItArcApiApplication.*</exclude>

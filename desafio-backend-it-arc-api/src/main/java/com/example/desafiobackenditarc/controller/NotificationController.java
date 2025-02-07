@@ -6,6 +6,7 @@ import com.example.desafiobackenditarc.dto.response.NotifyForecastResponseDTO;
 import com.example.desafiobackenditarc.exception.CPTECException;
 import com.example.desafiobackenditarc.exception.DesafioBackendItArcApiException;
 import com.example.desafiobackenditarc.exception.EntityNotFoundException;
+import com.example.desafiobackenditarc.service.NotifyForecastScheduledService;
 import com.example.desafiobackenditarc.service.NotifyForecastService;
 import com.example.desafiobackenditarc.service.ScheduleForecastService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,18 +29,26 @@ import static com.example.desafiobackenditarc.utils.ApiResponseUtil.buildSuccess
 public class NotificationController {
 
     private final NotifyForecastService notifyForecastService;
+    private final NotifyForecastScheduledService notifyForecastScheduledService;
     private final ScheduleForecastService scheduleForecastService;
 
     @PostMapping("/forecast")
-    @Operation(description = "Notify users from a city, whether the notification " +
-            "is scheduled or not")
-    public ResponseEntity notifyForecast(@Valid @RequestBody final NotifyForecastRequestDTO request)
+    @Operation(description = "Notify users from a city")
+    public ResponseEntity notifyForecastDirect(@Valid @RequestBody final NotifyForecastRequestDTO request)
             throws DesafioBackendItArcApiException, EntityNotFoundException, CPTECException {
         final NotifyForecastResponseDTO response = notifyForecastService.process(request);
         return buildSuccessResponse(response);
     }
 
-    @PostMapping("/forecast/schedule")
+    @PostMapping("/forecast/scheduled/{notificationId}")
+    @Operation(description = "Notify city that was already scheduled")
+    public ResponseEntity notifyForecastScheduled(@PathVariable("notificationId") final Integer notificationId)
+            throws DesafioBackendItArcApiException, EntityNotFoundException, CPTECException {
+        final NotifyForecastResponseDTO response = notifyForecastScheduledService.process(notificationId);
+        return buildSuccessResponse(response);
+    }
+
+    @PostMapping("/schedule")
     @Operation(description = "Schedule a notification for a city")
     public ResponseEntity scheduleForecast(@Valid @RequestBody final ScheduleForecastRequestDTO request) {
         scheduleForecastService.process(request);

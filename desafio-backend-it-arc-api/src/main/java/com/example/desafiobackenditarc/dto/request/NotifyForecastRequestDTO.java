@@ -15,6 +15,4 @@ import javax.validation.constraints.NotEmpty;
 public class NotifyForecastRequestDTO {
     @NotEmpty
     private String cityName;
-    @Valid
-    private Integer notificationId;
 }

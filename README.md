@@ -26,8 +26,8 @@ Este projeto é orquestrado usando Docker Compose. Ele possui quatro subprojetos
 
 1. **Clone o repositório**:
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/Lucaslsps/meli-desafio-backend-it-arc.git
+    cd meli-desafio-backend-it-arc
     ```
 
 2. **Inicie os serviços**:
@@ -47,6 +47,11 @@ O banco de dados PostgreSQL é inicializado com os seguintes scripts localizados
 - `01-create-tables.sql`: Cria as tabelas `notifications` e `users`.
 - `02-insert-data.sql`: Insere dados de seed nas tabelas `notifications` e `users`.
 
+Para conectar localmente ao banco basta usar:
+- String de conexão: jdbc:postgresql://localhost:5432/postgres
+- Usuário: admin
+- Senha: secret
+
 ## Health Checks
 
 O serviço `postgres` inclui uma verificação de saúde para garantir que o banco de dados esteja pronto antes que outros serviços iniciem.
@@ -60,6 +65,12 @@ A API possui uma documentação de endpoints via swagger acessível por: http://
 ### Fluxos
 
 ![Fluxos](./imgs/fluxos.png)
+
+## Segurança
+
+A aplicação principal possui autenticação via token JWT, sua secret é definida pela variável de ambiente security.secret.
+
+Seu valor padrão é "secret". Um token novo pode ser gerado via https://jwt.io/ ou pode ser usado o token já contido na collection Postman na raiz desse projeto
 
 ## Testes
 

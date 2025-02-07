@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
@@ -7,18 +7,27 @@ spring:
   profiles:
     active: ${ENV:dev}
   datasource:
-    url: jdbc:h2:mem:db
-    driver-class-name: org.h2.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:testdb}
     username: sa
-    password:
+    password: password
+    driver-class-name: org.h2.Driver
   jpa:
-    show-sql: true
-    hibernate:
-      default_schema: public
-      type: all
-      dialect: org.hibernate.dialect.H2Dialect
-      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+clients:
+  feign:
+    desafioBackendItArcApi:
+      url: http://localhost:${wiremock.server.port:5000}
+      token: mock
+      path:
+        notify-forecast: ${DESAFIO_IT_ARC_API_NOTIFY_FORECAST_PATH:}
+
+scheduler:
+  notification:
+    enabled: ${NOTIFICATION_SCHEDULER_ENABLED:true}
+    cron: ${NOTIFICATION_SCHEDULER_CRON:*/5 * * * * *}

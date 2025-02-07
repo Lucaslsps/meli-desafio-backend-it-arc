@@ -11,7 +11,7 @@ public class DesafioBackendItArcApiConfig {
     private String token;
     public static final String NAME = "desafioBackendItArcApi";
 
-    public static final String NOTIFY_FORECAST = "/notify/forecast";
+    public static final String NOTIFY_FORECAST = "/notify/forecast/scheduled/{notificationId}";
 
     public static final String URL = "${clients.feign.desafioBackendItArcApi.url}";
     public static final String PATH = "/api/v1";
